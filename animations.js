@@ -179,6 +179,155 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.head.appendChild(style);
     }
+
+    // After your existing animation functions, add these:
+
+// Animation for the challenge section
+function setupChallengeAnimation() {
+    const challengeBg = document.getElementById('challengeAnimatedBackground');
+    if (!challengeBg) return; // Exit if element not found
+    
+    // Clear any existing elements
+    challengeBg.innerHTML = '';
+    
+    // Create flood waves
+    for (let i = 0; i < 3; i++) {
+        createFloodWave(challengeBg, i);
+    }
+    
+    // Create landslides
+    for (let i = 0; i < 2; i++) {
+        createLandslide(challengeBg, i);
+    }
+    
+    // Create storm clouds with lightning
+    for (let i = 0; i < 4; i++) {
+        createStormCloud(challengeBg, i);
+    }
+}
+
+function createFloodWave(container, index) {
+    const wave = document.createElement('div');
+    wave.className = 'disaster-element flood-wave';
+    
+    // Size and position
+    const width = 150 + Math.random() * 100;
+    wave.style.width = width + 'px';
+    wave.style.height = (width / 2) + 'px';
+    wave.style.bottom = '-' + (width / 4) + 'px';
+    wave.style.left = (Math.random() * 80) + '%';
+    
+    // Animation
+    const duration = 15 + Math.random() * 10;
+    wave.style.animation = `flood-wave ${duration}s ease-in-out infinite`;
+    wave.style.animationDelay = `-${Math.random() * duration}s`;
+    
+    container.appendChild(wave);
+}
+
+function createLandslide(container, index) {
+    const landslide = document.createElement('div');
+    landslide.className = 'disaster-element landslide';
+    
+    // Size and position
+    const size = 80 + Math.random() * 60;
+    landslide.style.width = size + 'px';
+    landslide.style.height = size + 'px';
+    landslide.style.top = (20 + Math.random() * 50) + '%';
+    landslide.style.left = (index * 50 + Math.random() * 20) + '%';
+    
+    // Animation
+    landslide.style.animation = `landslide 20s ease-in-out infinite`;
+    landslide.style.animationDelay = `-${Math.random() * 10}s`;
+    
+    container.appendChild(landslide);
+}
+
+function createStormCloud(container, index) {
+    // Create cloud container
+    const cloudGroup = document.createElement('div');
+    cloudGroup.className = 'disaster-element';
+    cloudGroup.style.position = 'absolute';
+    cloudGroup.style.top = (Math.random() * 40) + '%';
+    cloudGroup.style.left = (index * 25 + Math.random() * 10) + '%';
+    
+    // Create cloud
+    const cloud = document.createElement('div');
+    cloud.className = 'storm-cloud';
+    const cloudSize = 40 + Math.random() * 30;
+    cloud.style.width = cloudSize + 'px';
+    cloud.style.height = cloudSize + 'px';
+    
+    // Add lightning to some clouds (randomly)
+    if (Math.random() > 0.5) {
+        const lightning = document.createElement('div');
+        lightning.className = 'lightning';
+        lightning.style.position = 'absolute';
+        lightning.style.width = (cloudSize / 2) + 'px';
+        lightning.style.height = (cloudSize) + 'px';
+        lightning.style.bottom = '-' + (cloudSize * 0.8) + 'px';
+        lightning.style.left = (cloudSize / 4) + 'px';
+        
+        // Lightning flash animation
+        lightning.style.animation = 'lightning-flash 7s ease-in-out infinite';
+        lightning.style.animationDelay = Math.random() * 7 + 's';
+        lightning.style.opacity = 0;
+        
+        cloudGroup.appendChild(lightning);
+    }
+    
+    // Animation for the cloud
+    cloudGroup.style.animation = `float-slow ${30 + Math.random() * 20}s linear infinite`;
+    cloudGroup.style.animationDelay = `-${Math.random() * 30}s`;
+    
+    cloudGroup.appendChild(cloud);
+    container.appendChild(cloudGroup);
+}
+
+// Add new keyframes to the animation styles
+function addChallengeAnimationStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes flood-wave {
+            0%, 100% { transform: translateY(0) scaleX(1); opacity: 0.3; }
+            50% { transform: translateY(-20px) scaleX(1.2); opacity: 0.7; }
+        }
+        
+        @keyframes landslide {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+            50% { transform: translateY(30px) rotate(5deg); opacity: 0.5; }
+        }
+        
+        @keyframes float-slow {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+        
+        @keyframes lightning-flash {
+            0%, 15%, 17%, 19%, 100% { opacity: 0; }
+            16%, 18% { opacity: 1; }
+        }
+    `;
+    
+    document.head.appendChild(style);
+}
+
+// Update your initialization code at the bottom of the file
+document.addEventListener('DOMContentLoaded', function() {
+    // Run existing animations
+    addAnimationStyles();
+    setupHeaderAnimation();
+    
+    // Add and run challenge section animations
+    addChallengeAnimationStyles();
+    setupChallengeAnimation();
+    
+    // Rerun animations when window is resized
+    window.addEventListener('resize', function() {
+        setupHeaderAnimation();
+        setupChallengeAnimation();
+    });
+});
     
     // Run everything
     addAnimationStyles();
