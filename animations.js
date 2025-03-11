@@ -120,69 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         container.appendChild(icon);
     }
-    
-    // Add animation keyframes to the document
-    function addAnimationStyles() {
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes raindrop {
-                0% { transform: translateY(-20px); opacity: 0; }
-                50% { opacity: 1; }
-                100% { transform: translateY(100px); opacity: 0; }
-            }
-            
-            @keyframes float {
-                0% { transform: translateX(-100px); }
-                100% { transform: translateX(calc(100vw + 100px)); }
-            }
-            
-            @keyframes pulse {
-                0% { transform: scale(0.8); opacity: 0.3; }
-                50% { transform: scale(1.2); opacity: 0.7; }
-                100% { transform: scale(0.8); opacity: 0.3; }
-            }
-            
-            .header {
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .animated-bg {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: 1;
-            }
-            
-            .header h1, .header p {
-                position: relative;
-                z-index: 2;
-            }
-            
-            .cloud {
-                position: absolute;
-                z-index: 1;
-            }
-            
-            .raindrop {
-                position: absolute;
-                z-index: 2;
-            }
-            
-            .warning-icon {
-                position: absolute;
-                z-index: 3;
-            }
-        `;
-        
-        document.head.appendChild(style);
-    }
 
-    // After your existing animation functions, add these:
-
-// Animation for the challenge section
+    // Animation for the challenge section
 function setupChallengeAnimation() {
     const challengeBg = document.getElementById('challengeAnimatedBackground');
     if (!challengeBg) return; // Exit if element not found
@@ -328,6 +267,68 @@ document.addEventListener('DOMContentLoaded', function() {
         setupChallengeAnimation();
     });
 });
+    
+    // Add animation keyframes to the document
+    function addAnimationStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes raindrop {
+                0% { transform: translateY(-20px); opacity: 0; }
+                50% { opacity: 1; }
+                100% { transform: translateY(100px); opacity: 0; }
+            }
+            
+            @keyframes float {
+                0% { transform: translateX(-100px); }
+                100% { transform: translateX(calc(100vw + 100px)); }
+            }
+            
+            @keyframes pulse {
+                0% { transform: scale(0.8); opacity: 0.3; }
+                50% { transform: scale(1.2); opacity: 0.7; }
+                100% { transform: scale(0.8); opacity: 0.3; }
+            }
+            
+            .header {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .animated-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1;
+            }
+            
+            .header h1, .header p {
+                position: relative;
+                z-index: 2;
+            }
+            
+            .cloud {
+                position: absolute;
+                z-index: 1;
+            }
+            
+            .raindrop {
+                position: absolute;
+                z-index: 2;
+            }
+            
+            .warning-icon {
+                position: absolute;
+                z-index: 3;
+            }
+        `;
+        
+        document.head.appendChild(style);
+    }
+
+
+
     
     // Run everything
     addAnimationStyles();
