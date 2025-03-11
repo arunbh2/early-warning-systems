@@ -19,29 +19,39 @@
             color: var(--black);
         }
 
-        .header {
-            background: linear-gradient(to right, var(--blue), #003366);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+       .header {
+    background: linear-gradient(to right, var(--blue), #003366);
+    color: white;
+    padding: 3rem 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+}
 
-        .header h1 {
-            color: var(--orange);
-            margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 2;
-        }
+.animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
 
-        .header p {
-            color: white;
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
+.header h1 {
+    color: var(--orange);
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.header p {
+    color: white;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
 
         .animated-bg {
             position: absolute;
