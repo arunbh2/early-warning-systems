@@ -470,13 +470,13 @@
 
         /* Partnerships Network */
         .network-container {
-            height: 400px;
-            background-color: white;
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
 
         /* Action Plan Generator */
         .action-generator {
