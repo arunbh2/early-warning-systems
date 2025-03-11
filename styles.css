@@ -328,14 +328,43 @@
         }
 
         /* Community Diagram */
-        .community-diagram {
-            height: 400px;
-            background-color: white;
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
+       .community-diagram {
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+#community-info-panel {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#community-info-panel h4 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+#community-info-panel h5 {
+    color: #0066CC;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+#community-info-panel ul {
+    padding-left: 20px;
+}
+
+#community-info-panel li {
+    margin-bottom: 0.3rem;
+}
 
         /* Implementation Timeline */
         .timeline {
