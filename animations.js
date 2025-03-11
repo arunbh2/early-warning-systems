@@ -122,35 +122,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Animation for the challenge section
-function setupChallengeAnimation() {
+document.addEventListener('DOMContentLoaded', function() {
     const challengeBg = document.getElementById('challengeAnimatedBackground');
-    if (!challengeBg) {
-        console.error("Challenge background element not found!");
-        return;
-    }
     
-    // Clear any existing elements
-    challengeBg.innerHTML = '';
-    
-    // Add simple elements with basic animations
-    for (let i = 0; i < 10; i++) {
-        // Create a simple animated element
-        const element = document.createElement('div');
-        element.style.position = 'absolute';
-        element.style.width = '50px';
-        element.style.height = '50px';
-        element.style.borderRadius = '50%';
-        element.style.backgroundColor = i % 3 === 0 ? '#FF7F00' : i % 3 === 1 ? '#0066CC' : '#CC0000';
-        element.style.top = (Math.random() * 100) + '%';
-        element.style.left = (Math.random() * 100) + '%';
-        element.style.opacity = '0.5';
+    if (challengeBg) {
+        // Add a simple test div
+        const testElement = document.createElement('div');
+        testElement.style.width = "100px";
+        testElement.style.height = "100px";
+        testElement.style.backgroundColor = "blue";
+        testElement.style.position = "absolute";
+        testElement.style.top = "50px";
+        testElement.style.left = "50px";
+        testElement.style.animation = "test-animation 2s infinite";
         
-        // Add animation
-        element.style.animation = `simple-animation ${5 + Math.random() * 5}s infinite`;
-        element.style.animationDelay = `-${Math.random() * 5}s`;
+        challengeBg.appendChild(testElement);
         
-        challengeBg.appendChild(element);
+        // Add a simple keyframe animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes test-animation {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.5); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
     }
+});
     
     // Add simple keyframes
     const style = document.createElement('style');
