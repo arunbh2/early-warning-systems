@@ -121,9 +121,56 @@
             margin: 0 auto;
         }
 
-        .challenge-section {
-            background-color: var(--light-red);
-        }
+       .challenge-section {
+    position: relative;
+    overflow: hidden;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+}
+
+.challenge-animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 0.15; /* Subtle background */
+}
+
+.challenge-section h2,
+.challenge-content {
+    position: relative;
+    z-index: 2; /* Ensure content appears above animation */
+}
+
+/* Weather animation elements */
+.disaster-element {
+    position: absolute;
+    pointer-events: none; /* Prevent interference with clicks */
+}
+
+.flood-wave {
+    background: linear-gradient(180deg, transparent, var(--blue) 50%, transparent);
+    border-radius: 50% 50% 0 0;
+    transform-origin: bottom center;
+}
+
+.landslide {
+    background: linear-gradient(135deg, #8B4513, #A0522D);
+    clip-path: polygon(0% 100%, 100% 100%, 50% 0%);
+}
+
+.storm-cloud {
+    background: #666;
+    border-radius: 50%;
+    box-shadow: 10px 10px 0 0 #555;
+}
+
+.lightning {
+    background: var(--orange);
+    clip-path: polygon(40% 0%, 60% 0%, 55% 40%, 100% 40%, 30% 100%, 45% 50%, 0% 50%);
+}
 
         .solution-section {
             background-color: var(--light-green);
