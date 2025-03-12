@@ -1,4 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Wait for both the DOM and external resources to load
+window.addEventListener('load', function() {
+    // Check if D3 is available
+    if (typeof d3 === 'undefined') {
+        console.error('D3 library is not loaded. Please check the script inclusion in your HTML.');
+        return;
+    }
+    
+    console.log('Starting disaster visualization creation');
     createDisasterVisualization();
 });
 
@@ -6,33 +14,46 @@ function createDisasterVisualization() {
     // Check if the challenge section exists
     const challengeSection = document.getElementById('challenge');
     if (!challengeSection) {
-        console.error("Challenge section not found");
+        console.error("Challenge section not found. Make sure there's an element with id='challenge'");
         return;
     }
+    
+    console.log('Challenge section found, creating visualization');
     
     // First, let's create a container for our visualization
     const vizContainer = document.createElement('div');
     vizContainer.id = 'disaster-visualization';
     vizContainer.style.width = '100%';
-    vizContainer.style.height = '200px';
+    vizContainer.style.height = '300px'; // Increased height for better visibility
     vizContainer.style.marginBottom = '20px';
     vizContainer.style.position = 'relative';
     
-    // Add it to the beginning of the challenge section
-    if (challengeSection.firstChild) {
-        challengeSection.insertBefore(vizContainer, challengeSection.firstChild);
+    // Add it after the animated background in the challenge section
+    const animatedBg = document.getElementById('challengeAnimatedBackground');
+    if (animatedBg) {
+        challengeSection.insertBefore(vizContainer, animatedBg.nextSibling);
     } else {
-        challengeSection.appendChild(vizContainer);
+        // Fallback to the beginning of the challenge section
+        if (challengeSection.firstChild) {
+            challengeSection.insertBefore(vizContainer, challengeSection.firstChild);
+        } else {
+            challengeSection.appendChild(vizContainer);
+        }
     }
     
     // Set up SVG with D3
-    const width = vizContainer.clientWidth;
-    const height = vizContainer.clientHeight;
+    // Use getBoundingClientRect for more accurate sizing
+    const containerRect = vizContainer.getBoundingClientRect();
+    const width = containerRect.width || vizContainer.clientWidth || 800;
+    const height = containerRect.height || vizContainer.clientHeight || 300;
+    
+    console.log(`Creating SVG with dimensions: ${width}x${height}`);
     
     const svg = d3.select('#disaster-visualization')
         .append('svg')
-        .attr('width', width)
-        .attr('height', height)
+        .attr('width', '100%')
+        .attr('height', '100%')
+        .attr('viewBox', `0 0 ${width} ${height}`)
         .style('background-color', '#f5f5f5')
         .style('border-radius', '8px')
         .style('overflow', 'hidden');
@@ -119,7 +140,7 @@ function createDisasterVisualization() {
                 .delay(i * 300)
                 .attr('r', circleSize);
                 
-            // Add pulsing animation
+            // Add pulsing animation with a safer implementation
             function pulseCircle() {
                 circle.transition()
                     .duration(2000)
@@ -132,8 +153,13 @@ function createDisasterVisualization() {
                     .on('end', pulseCircle);
             }
             
-            // Start pulsing after initial grow animation
-            setTimeout(pulseCircle, 1000 + i * 300);
+            // Start pulsing after initial grow animation with a safer approach
+            setTimeout(() => {
+                // Check if element still exists in DOM before animating
+                if (document.getElementById('disaster-visualization')) {
+                    pulseCircle();
+                }
+            }, 1000 + i * 300);
             
             // Add year labels below the last row
             if (disasterData.type === disasterTypes[disasterTypes.length - 1].type) {
@@ -204,8 +230,13 @@ function createDisasterVisualization() {
         .attr('stroke', '#CC0000')
         .attr('stroke-width', 3);
     
-    // Add animation to the arrow indicating increasing risk
+    // Add animation to the arrow indicating increasing risk with a safer implementation
     function animateArrow() {
+        // Check if element still exists in DOM before animating
+        if (!document.getElementById('disaster-visualization')) {
+            return; // Stop animation if element no longer exists
+        }
+        
         arrowGroup.transition()
             .duration(1500)
             .attr('transform', `translate(${width - 35}, 100)`)
@@ -225,5 +256,18 @@ function createDisasterVisualization() {
         .style('font-size', '12px')
         .style('fill', '#CC0000')
         .text('Rising Risks');
+    
+    console.log('Disaster visualization created successfully');
+}
 
+// Fallback initialization in case the load event has already fired
+if (document.readyState === "complete") {
+    console.log('Document already loaded, initializing visualization');
+    setTimeout(function() {
+        if (typeof d3 !== 'undefined') {
+            createDisasterVisualization();
+        } else {
+            console.error('D3 library not available for fallback initialization');
+        }
+    }, 500); // Short delay to ensure other resources are loaded
 }
